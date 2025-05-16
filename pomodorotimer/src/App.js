@@ -1,41 +1,31 @@
 import "./App.css";
+import Timer from "./Timer";
+import Settings from "./Settings";
+import { useState } from "react";
+import SettingsContext from "./SettingsContext";
 
 function App() {
+  const [showSettings, setShowSettings] = useState(false);
+  const [workMinutes, setWorkMinutes] = useState(45);
+  const [breakMinutes, setBreakMinutes] = useState(15);
+
   return (
-    <>
-      <head>
-        <title> Pomodoro App</title>
-      </head>
-      <body>
-        <div className="timer-buttons">
-          <button className="timer-btn pomodoro active" data-time="1500">
-            Pomodoro
-          </button>
-          <button className="timer-btn short-breack" data-time="300">
-            Short Brrack
-          </button>
-          <button className="timer-btn long-breack" data-time="900">
-            Long Breack
-          </button>
-        </div>
-        <div className="circle">
-          <div className="countdown">
-            <h1></h1>
-            <p className="play-pause"></p>
-          </div>
-        </div>
-      </body>
-    </>
+    <main>
+      <h1>Pomodoro</h1>
+      <SettingsContext.Provider
+        value={{
+          showSettings,
+          setShowSettings,
+          workMinutes,
+          breakMinutes,
+          setWorkMinutes,
+          setBreakMinutes,
+        }}
+      >
+        {showSettings ? <Settings /> : <Timer />}
+      </SettingsContext.Provider>
+    </main>
   );
 }
 
 export default App;
-
-<script>
-  const POMODORO = 1500;
-  const SHORT_BREAK = 300;
-  const LONG_BREACK = 900;
-
-  const timerButton = document.querySelectorAll(".timer-btn");
-  
-</script>
